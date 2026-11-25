@@ -1,8 +1,10 @@
-IMMANIS USLUGE V8 – Namecheap Private Email
-1. Hosting mora podržavati PHP 8.x, OpenSSL, sesije i izlazni SMTP na portu 587 (ili 465). Cloudflare Pages, Render Static Site i Google Sites ne izvršavaju ovaj PHP modul. Prije odabira besplatnog hostinga provjerite dopušta li vanjski SMTP.
-2. Učitajte sadržaj ZIP-a u javnu mapu hostinga (htdocs/public_html).
-3. SMTP poslužitelj mail.privateemail.com, port 587 STARTTLS i korisnik info@immanis-usluge.com već su postavljeni. U zaštićenim varijablama okruženja postavite IMMANIS_SMTP_PASS na lozinku sandučića. Alternativno izradite immanis-smtp.php u mapi iznad javne mape, nikada u javnoj mapi, sa sadržajem:
-<?php return ['pass'=>'OVDJE_UNESITE_LOZINKU'];
-Ograničite pristup datoteci na korisnika poslužitelja. Nemojte slati lozinku u chat ili pohranjivati u Git. Za port 465 postavite IMMANIS_SMTP_PORT=465.
-4. Primatelj svih obrazaca je info@immanis-usluge.com. Poruke imaju zasebne naslove, a Reply-To je adresa posjetitelja. Testirajte sva četiri obrasca, obje kategorije prijava i primitak poruka. Životopisi se šalju zasebno e-poštom.
-5. Aktivirajte HTTPS, sačuvajte postojeće MX, SPF, DKIM i DMARC zapise. Preporučuje se dodatna zaštita od spama i ograničavanje zahtjeva na razini hostinga. Provjerite prava na slike i dopunite politiku privatnosti. RRiF arhiva se dopunjava ručno. Administracija nije uključena.
+IMMANIS V9 – statički hosting + Supabase
+1. Otvori https://supabase.com/dashboard i kreiraj Free projekt, po mogućnosti EU regija.
+2. SQL Editor: kopiraj sadržaj supabase.sql i pokreni jednom.
+3. Authentication > Users: dodaj info@immanis-usluge.com s jakom jedinstvenom lozinkom, potvrdi korisnika. Isključi javne registracije u Auth postavkama. U SQL Editoru zasebno izvrši:
+   insert into public.immanis_admins(uid) select id from auth.users where email='info@immanis-usluge.com';
+4. Project settings / Connect: kopiraj Project URL i publishable key (ili legacy anon key) u config.js. Nikada secret ili service_role ključ. Lozinka administratora ne ide u datoteke.
+5. Učitaj javne datoteke na hosting; supabase.sql i UPUTE.txt ne trebaju biti na javnom hostingu. Koristi HTTPS.
+6. Otvori admin.html, prijavi se. Pošalji test iz svakog obrasca i provjeri da su u portalu. Iz anonimnog preglednika provjeri da REST /immanis_upiti ne vraća podatke; provjeri i s običnim neovlaštenim računom. Testiraj izmjenu sadržaja i odjavu.
+7. Sadržaj: administracija uređuje projekte, novosti i natječaje; slike se dodaju putem HTTPS URL-a, ne izravnim uploadom. CSV se otvara u Excelu. Nema automatskog emaila ni RRiF sinkronizacije. CV se šalje zasebno emailom.
+8. Prije javne objave dopuni privatnost, provjeri ugovor o obradi, rokove čuvanja, prava na slike, izvore novosti. RPC ograničava veličinu i polja, ali nema naprednu zaštitu od automatiziranog spama; prije promocije dodaj CAPTCHA/rate limiting na poslužitelju. Free paket ima ograničenja i može se pauzirati. Nije testirano na stvarnom Supabase projektu.
