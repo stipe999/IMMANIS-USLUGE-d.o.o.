@@ -1,17 +1,8 @@
-IMMANIS USLUGE – upute
-Otvorite index.html za lokalni pregled.
-Za Cloudflare Pages učitajte sadržaj ovog ZIP-a kao statičku stranicu. U Custom domains povežite immanis-usluge.com prema uputama pružatelja; ne brišite MX zapise poslovne e-pošte.
-Sadržaj: uređujte sadrzaj.js (UTF-8), a slike stavite u assets/ i upišite npr. assets/projekt.jpg. Novosti: {"naslov":"...","datum":"...","opis":"..."}. Poslovi: {"naslov":"...","odjel":"tehnika","aktivan":true,"opis":"..."} (ili odjel knjigovodstvo). Nakon promjena ponovno objavite datoteke. Nema administratorske prijave ni baze podataka. Prijave za posao idu e-poštom.
-Prije objave provjerite prava na fotografije i dodajte stvarne fotografije, dopunite politiku privatnosti, provjerite Jotform primatelje i testirajte oba obrasca. Google Ads odobrenje nije zajamčeno.
-
-FOTOGRAFIJE: Ovo je pregled s vanjskim HTTPS poveznicama, ne lokalno preuzetim fotografijama. Potrebna je internetska veza; dostupnost nije zajamčena. Prije javne objave pribavite prava korištenja ili zamijenite slike vlastitim fotografijama u assets/ te uredite sadrzaj.js i index.html. Vrtić je vizualizacija novog objekta u Donjoj Zelini; potvrdite da je riječ o vašem projektu. Fotografija kuće je ilustrativna.
-
-V4 – NOVOSTI
-18 odabranih datiranih objava i propisa iz RRiF javne arhive. Nije iscrpan registar niti porezni savjet. Sažeci su urednički, ne kopirani članci. Automatske poveznice: prije aktivacije provjeriti uvjete korištenja i pribaviti dopuštenje RRiF-a ili službeni feed. Funkcija functions/api/rrif.js je opcionalna i nije testirana na živom izvoru. Cloudflare Pages Direct Upload preko nadzorne ploče ne izvršava mapu functions; koristiti Git integraciju (root, bez build naredbe, izlaz .) ili Wrangler Pages deploy iz korijena projekta. Postaviti RRIF_AUTO=1 tek nakon dopuštenja, ponovno objaviti. Provjeriti /api/rrif i prikaz na knjigovodstvo.html. Ako izvor promijeni HTML, parser treba prilagoditi. Provjera pri posjetu uz cache od jednog sata; nije trajna arhiva niti zakazano izvršavanje. Spremljene vijesti ostaju dostupne bez API-ja. Ne prepisuje cijele članke. Fotografije iz V3 ostaju vanjske i zahtijevaju provjeru prava.
-
-V5 – E-POŠTA
-Svi mailto linkovi vode na info@immanis-usluge.com. Za oba Jotform obrasca u Settings > Emails postavite Notification Email > Recipients na info@immanis-usluge.com, spremite i testirajte. Prijave za posao otvaraju program za e-poštu; korisnik mora poslati poruku.
-
-V6 – STATIČKI BESPLATNI HOSTING (ova uputa ima prednost nad ranijima)
-Raspakirajte ZIP. Na InfinityFree otvorite File Manager, mapu htdocs za svoju domenu i učitajte sve HTML, CSS, JS datoteke i mapu assets. index.html mora biti izravno u htdocs, ne u dodatnoj podmapi. Povežite domenu prema DNS uputama hostinga; sačuvajte MX, SPF, DKIM i DMARC zapise za poslovnu poštu. Aktivirajte HTTPS. Na Netlify Drop učitajte raspakiranu mapu. Nije potreban PHP, Node.js, cron ili baza.
-Automatski RRiF API uklonjen je iz ove statičke verzije. Arhiva ostaje, uz poveznicu na RRiF; nove vijesti dodajte ručno u sadrzaj.js. Postojeća arhiva nije ponovno provjerena. Jotform obrasci ostaju vanjski; provjerite besplatnu kvotu i postavite primatelja info@immanis-usluge.com te testirajte dostavu. Prijave e-poštom zahtijevaju da posjetitelj sam pošalje poruku. Fotografije ostaju vanjske; provjerite dostupnost i prava. Politika privatnosti je nacrt. Nema administratorskog sučelja. Prije oglašavanja testirajte sve stranice i obrasce.
+IMMANIS USLUGE V8 – Namecheap Private Email
+1. Hosting mora podržavati PHP 8.x, OpenSSL, sesije i izlazni SMTP na portu 587 (ili 465). Cloudflare Pages, Render Static Site i Google Sites ne izvršavaju ovaj PHP modul. Prije odabira besplatnog hostinga provjerite dopušta li vanjski SMTP.
+2. Učitajte sadržaj ZIP-a u javnu mapu hostinga (htdocs/public_html).
+3. SMTP poslužitelj mail.privateemail.com, port 587 STARTTLS i korisnik info@immanis-usluge.com već su postavljeni. U zaštićenim varijablama okruženja postavite IMMANIS_SMTP_PASS na lozinku sandučića. Alternativno izradite immanis-smtp.php u mapi iznad javne mape, nikada u javnoj mapi, sa sadržajem:
+<?php return ['pass'=>'OVDJE_UNESITE_LOZINKU'];
+Ograničite pristup datoteci na korisnika poslužitelja. Nemojte slati lozinku u chat ili pohranjivati u Git. Za port 465 postavite IMMANIS_SMTP_PORT=465.
+4. Primatelj svih obrazaca je info@immanis-usluge.com. Poruke imaju zasebne naslove, a Reply-To je adresa posjetitelja. Testirajte sva četiri obrasca, obje kategorije prijava i primitak poruka. Životopisi se šalju zasebno e-poštom.
+5. Aktivirajte HTTPS, sačuvajte postojeće MX, SPF, DKIM i DMARC zapise. Preporučuje se dodatna zaštita od spama i ograničavanje zahtjeva na razini hostinga. Provjerite prava na slike i dopunite politiku privatnosti. RRiF arhiva se dopunjava ručno. Administracija nije uključena.
